@@ -14,5 +14,5 @@ walk2a_extracted_rows = df.iloc[list(range(2532, 5538))]
 walk2b_extracted_rows = df.iloc[list(range(6273, 9648))]
 
 # Create a new CSV file
-walk2a_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-WALK-2A.csv", index=False)
-walk2b_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-WALK-2B.csv", index=False)
+walk2a_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-WALK-2A.xlsx", index=False)
+walk2b_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-WALK-2B.xlsx", index=False)

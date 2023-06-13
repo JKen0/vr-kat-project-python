@@ -15,6 +15,6 @@ medium_step_extracted_rows = df.iloc[list(range(7035, 10897))]
 large_step_extracted_rows = df.iloc[list(range(11557, 16967))]
 
 # Create a new CSV file
-small_step_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-SMALL-STEPS.csv", index=False)
-medium_step_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-MEDIUM-STEPS.csv", index=False)
-large_step_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LARGE-STEPS.csv", index=False)
+small_step_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-SMALL-STEPS.xlsx", index=False)
+medium_step_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-MEDIUM-STEPS.xlsx", index=False)
+large_step_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LARGE-STEPS.xlsx", index=False)

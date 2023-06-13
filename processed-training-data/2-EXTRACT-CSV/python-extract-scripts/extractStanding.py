@@ -15,6 +15,6 @@ stand2_extracted_rows = df.iloc[list(range(3526, 4630))]
 stand3_extracted_rows = df.iloc[list(range(4835, 5424))]
 
 # Create a new CSV file
-stand1_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-STAND1.csv", index=False)
-stand2_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-STAND2.csv", index=False)
-stand3_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-STAND3.csv", index=False)
+stand1_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-STAND1.xlsx", index=False)
+stand2_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-STAND2.xlsx", index=False)
+stand3_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-STAND3.xlsx", index=False)

@@ -13,4 +13,4 @@ df = pd.read_csv(RAW_FILE_PATH)
 large_fast_extracted_rows = df.iloc[list(range(2282, 6132))]
 
 # Create a new CSV file
-large_fast_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LARGE-FAST-STEP.csv", index=False)
+large_fast_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LARGE-FAST-STEP.xlsx", index=False)

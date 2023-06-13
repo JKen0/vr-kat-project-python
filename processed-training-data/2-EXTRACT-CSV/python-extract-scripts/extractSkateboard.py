@@ -13,4 +13,4 @@ df = pd.read_csv(RAW_FILE_PATH)
 large_fast_extracted_rows = df.iloc[list(range(4070, 7085))]
 
 # Create a new CSV file
-large_fast_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-SKATEBOARD.csv", index=False)
+large_fast_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-SKATEBOARD.xlsx", index=False)

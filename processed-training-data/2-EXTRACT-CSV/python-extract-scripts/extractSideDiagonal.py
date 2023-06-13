@@ -16,7 +16,7 @@ left_diag_step_extracted_rows = df.iloc[list(range(9536, 12584))]
 right_diag_step_extracted_rows = df.iloc[list(range(13035, 16201))]
 
 # Create a new CSV file
-left_step_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LEFT-STEPS.csv", index=False)
-right_step_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-RIGHT-STEPS.csv", index=False)
-left_diag_step_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LEFT-DIAG-STEPS.csv", index=False)
-right_diag_step_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-RIGHT-DIAG-STEPS.csv", index=False)
+left_step_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LEFT-STEPS.xlsx", index=False)
+right_step_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-RIGHT-STEPS.xlsx", index=False)
+left_diag_step_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-LEFT-DIAG-STEPS.xlsx", index=False)
+right_diag_step_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-RIGHT-DIAG-STEPS.xlsx", index=False)

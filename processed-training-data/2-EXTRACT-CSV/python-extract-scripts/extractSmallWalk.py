@@ -13,4 +13,4 @@ df = pd.read_csv(RAW_FILE_PATH)
 small_walk_extracted_rows = df.iloc[list(range(1907, 4722))]
 
 # Create a new CSV file
-small_walk_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-SMALL-WALK.csv", index=False)
+small_walk_extracted_rows.to_excel(EXTRACT_FOLDER_PATH + "PRE-TRAIN-SMALL-WALK.xlsx", index=False)

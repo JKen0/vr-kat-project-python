@@ -13,4 +13,4 @@ df = pd.read_csv(RAW_FILE_PATH)
 walk3a_extracted_rows = df.iloc[list(range(2553, 5543))]
 
 # Create a new CSV file
-walk3a_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-WALK-3A.csv", index=False)
+walk3a_extracted_rows.to_csv(EXTRACT_FOLDER_PATH + "PRE-TRAIN-WALK-3A.xlsx", index=False)
