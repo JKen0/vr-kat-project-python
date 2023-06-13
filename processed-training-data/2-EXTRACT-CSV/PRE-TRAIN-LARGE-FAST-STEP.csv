@@ -1,4 +1,4 @@
-Timestamp,Iteration,L_Pitch,L_Roll,R_Pitch,R_Roll,Unnamed: 6,Unnamed: 7,Unnamed: 8
+Timestamp,Iteration,L_Pitch,L_Roll,R_Pitch,R_Roll,X_Vel,Z_Vel,Notes
 12-06-2023 18:17:14.893,2282,17,2,18,-3,,,
 12-06-2023 18:17:14.913,2283,17,2,18,-3,,,START LARGE FAST STEP
 12-06-2023 18:17:14.935,2284,17,2,18,-3,,,

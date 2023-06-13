@@ -1,4 +1,4 @@
-Timestamp,Iteration,L_Pitch,L_Roll,R_Pitch,R_Roll,Unnamed: 6,Unnamed: 7,Unnamed: 8
+Timestamp,Iteration,L_Pitch,L_Roll,R_Pitch,R_Roll,X_Vel,Z_Vel,Notes
 09-06-2023 11:01:20.034,2924,17,4,16,-3,,,
 09-06-2023 11:01:20.053,2925,17,4,16,-3,,,
 09-06-2023 11:01:20.072,2926,17,4,16,-3,,,

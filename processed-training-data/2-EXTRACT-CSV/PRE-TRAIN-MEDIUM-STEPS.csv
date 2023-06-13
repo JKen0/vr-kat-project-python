@@ -1,4 +1,4 @@
-Timestamp,Iteration,L_Pitch,L_Roll,R_Pitch,R_Roll,Unnamed: 6,Unnamed: 7,Unnamed: 8
+Timestamp,Iteration,L_Pitch,L_Roll,R_Pitch,R_Roll,X_Vel,Z_Vel,Notes
 12-06-2023 17:29:29.720,7035,18,1,17,-3,,,
 12-06-2023 17:29:29.741,7036,18,1,17,-3,,,START MEDIUM STEPS
 12-06-2023 17:29:29.765,7037,18,1,17,-3,,,
