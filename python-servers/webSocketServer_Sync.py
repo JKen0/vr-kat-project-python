@@ -3,9 +3,24 @@ import websockets
 import json
 import random
 from datetime import datetime
+import numpy as np 
+from NeuralNetwork.ModelPredictor import ModelPredictor
 
 
-def process_request(message):
+MAX_TIMESTEPS = 10
+PREVIOUS_SENSOR_DATA = []
+MODEL_PATH = 'test-model.h5'
+
+def update_previous_sensor_data(new_sensor_data):
+    # Append the new sensor data to the list
+    previous_sensor_data.append(new_sensor_data)
+    
+    # Keep only the most recent 'max_timesteps' entries
+    if len(previous_sensor_data) > MAX_TIMESTEPS:
+        previous_sensor_data = previous_sensor_data[-PREVIOUS_SENSOR_DATA:]
+
+
+def process_request(model_predictor, message):
     # Process the request and return the response
     sensor_data = json.loads(message)
 
@@ -15,18 +30,26 @@ def process_request(message):
     R_Roll_Data = sensor_data["R_Roll"]
 
     # FEED THE SENSORS TO OUR NEURAL NETWORK
-    # TO DO IN THE FUTURE
+    new_sensor_data = np.array([L_Pitch_Data, L_Roll_Data, R_Pitch_Data, R_Roll_Data])
+    update_previous_sensor_data(new_sensor_data)
+
 
     # IN RETURN WE WILL GET A VECT REPRESENTING VELOCITY
     response = {
-        'x_velocity': random.randrange(20),
-        'y_velocity': random.randrange(20),
-        'z_velocity': random.randrange(20)
+        'x_velocity': 0.000,
+        'y_velocity': 0.000,
+        'z_velocity': 0.000
     }
+
+    if(len(PREVIOUS_SENSOR_DATA) == MAX_TIMESTEPS):
+        velocity_prediction = model_predictor.predict(PREVIOUS_SENSOR_DATA)
+        response['x_velocity'] = velocity_prediction[0]
+        response['z_velocity'] = velocity_prediction[1]
 
     return response
 
 async def handle_websocket(websocket, path):
+    model_predictor = ModelPredictor(MODEL_PATH)
     print(str(datetime.now()) + ": Client connected")
     await websocket.send("You are now connected via WebSocket")
 
@@ -36,7 +59,7 @@ async def handle_websocket(websocket, path):
             message = await websocket.recv()
 
             # PROCESS AND CREATE RESPONSE FOR CLIENT
-            response = process_request(message)
+            response = process_request(model_predictor, message)
             response_json = json.dumps(response)
 
             # SEND RESPONSE TO CLIENT
