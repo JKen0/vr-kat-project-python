@@ -5,7 +5,8 @@ import numpy as np
 
 # FETCH ALL DATA
 PROCESS_TRAIN2_FOLDER = "C:\Dev\\vr-kat-project-python-2\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
-ALL_FILE_NAMES = [file for file in os.listdir(PROCESS_TRAIN2_FOLDER) if file.endswith('.xlsx') and "AUGMENT" not in file]
+ALL_FILE_NAMES = [file for file in os.listdir(PROCESS_TRAIN2_FOLDER) if file.endswith('.xlsx') and "AUGMENT" not in file and "STAND" not in file]
+
 
 
 #  HEELPER FUNCTION 
@@ -26,12 +27,13 @@ def listToString(s, joinElement = ''):
 
 
 
-
 # LOOP THROUGH EACH FILE
 # THIS WILL TAKE EVERY OTHER SENSOR DATA (THIS WILL HALF CYCLE TIME, DOUBLE SPEED, DOUBLE BPM)
 for fileName in ALL_FILE_NAMES:
     fileNameSplit = fileName.split("-")
     getBPM = numeric_part = ''.join(filter(str.isdigit, fileNameSplit[-1]))
+
+    newBPM = 2*int(getBPM)
 
     # Read the Excel file
     df = pd.read_excel(PROCESS_TRAIN2_FOLDER + fileName)
@@ -54,8 +56,10 @@ for fileName in ALL_FILE_NAMES:
     augmentedData['X_Vel'] = 2*augmentedData['X_Vel']
     augmentedData['Z_Vel'] = 2*augmentedData['Z_Vel']
 
+    #update classification class to the new BPM
+    augmentedData['Classification'] = listToString(fileNameSplit[2:-1:2] + ['' + str(newBPM) + 'BPM'], '-')
+
     #create new filename
-    newBPM = 2*int(getBPM)
     arrayAugmentFileName = fileNameSplit[:-1] + ['' + str(newBPM) + 'BPM-AUGMENT.xlsx']
     stringAugmentFileName = listToString(arrayAugmentFileName, '-')
 
@@ -72,6 +76,7 @@ for fileName in ALL_FILE_NAMES:
     fileNameSplit = fileName.split("-")
     getBPM = numeric_part = ''.join(filter(str.isdigit, fileNameSplit[-1]))
 
+    newBPM = int(1/2*int(getBPM))
 
     # Read the Excel file
     df = pd.read_excel(PROCESS_TRAIN2_FOLDER + fileName)
@@ -110,8 +115,11 @@ for fileName in ALL_FILE_NAMES:
     augmentedData['X_Vel'] = 1/2*augmentedData['X_Vel']
     augmentedData['Z_Vel'] = 1/2*augmentedData['Z_Vel']
 
+    #update classification class to the new BPM
+    augmentedData['Classification'] = listToString(fileNameSplit[2:-1:2] + ['' + str(newBPM) + 'BPM'], '-')
+
+
     #create new filename
-    newBPM = int(1/2*int(getBPM))
     arrayAugmentFileName = fileNameSplit[:-1] + ['' + str(newBPM) + 'BPM-AUGMENT.xlsx']
     stringAugmentFileName = listToString(arrayAugmentFileName, '-')
 
