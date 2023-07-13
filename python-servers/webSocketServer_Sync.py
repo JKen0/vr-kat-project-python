@@ -13,7 +13,7 @@ from ModelPredictor import ModelPredictor
 # IMPORTANT PARAMETERS FOR THE MODEL
 MAX_TIMESTEPS = 10
 NUMBER_OF_FEATURES = 4
-MODEL_PATH = 'test-model.h5'
+MODEL_PATH = 'C:\\Dev\\vr-kat-project-python-2\\NeuralNetwork\\models\\model2.h5'
 
         
 # THIS WILL  HANDLE THE MESSAGE RETURNED BY THE WEBSOCKET (AKA. THE GAME)
@@ -31,8 +31,9 @@ def process_request(model_predictor, message):
     }
 
     velocity_prediction = model_predictor.predict(input_data_reshape)
-    response['x_velocity'] = str(round(velocity_prediction[0][0], 3))
-    response['z_velocity'] = str(round(velocity_prediction[0][1], 3))
+
+    response['x_velocity'] = str(round(-1*velocity_prediction[0][0] + velocity_prediction[0][1], 3))
+    response['z_velocity'] = str(round(velocity_prediction[0][2], 3))
 
     return response
 
