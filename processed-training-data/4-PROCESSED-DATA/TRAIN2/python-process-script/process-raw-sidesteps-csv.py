@@ -13,33 +13,33 @@ FILES_ARRAY = [
         "Z_Vel_R": 0.00, 
         "destinationFileName_R": "PROC-TRAIN2-SIDESTEPS-R-LAR-60BPM.xlsx" 
     },
-#    {
-#        "fileName": "RAW-TRAIN2-SIDESTEPS-LR-LAR-80BPM.csv", 
-#        "X_Vel_L": -1.22 , 
-#        "Z_Vel_L": 0.00, 
-#        "destinationFileName_L": "PROC-TRAIN2-SIDESTEPS-L-LAR-80BPM.xlsx",
-#        "X_Vel_R": 1.22, 
-#        "Z_Vel_R": 0.00, 
-#        "destinationFileName_R": "PROC-TRAIN2-SIDESTEPS-R-LAR-80BPM.xlsx" 
-#    },
-#    {
-#        "fileName": "RAW-TRAIN2-SIDESTEPS-LR-MED-80BPM.csv", 
-#        "X_Vel_L": -0.88, 
-#        "Z_Vel_L": 0.00, 
-#        "destinationFileName_L": "PROC-TRAIN2-SIDESTEPS-L-MED-80BPM.xlsx",
-#        "X_Vel_R": 0.88 , 
-#        "Z_Vel_R": 0.00, 
-#        "destinationFileName_R": "PROC-TRAIN2-SIDESTEPS-R-MED-80BPM.xlsx" 
-#    },
-#    {
-#        "fileName": "RAW-TRAIN2-SIDESTEPS-LR-MED-110BPM.csv", 
-#        "X_Vel_L": -1.21, 
-#        "Z_Vel_L": 0.00, 
-#        "destinationFileName_L": "PROC-TRAIN2-SIDESTEPS-L-MED-110BPM.xlsx",
-#        "X_Vel_R": 1.21, 
-#        "Z_Vel_R": 0.00, 
-#        "destinationFileName_R": "PROC-TRAIN2-SIDESTEPS-R-MED-110BPM.xlsx" 
-#    },
+    {
+        "fileName": "RAW-TRAIN2-SIDESTEPS-LR-LAR-80BPM.csv", 
+        "X_Vel_L": -1.22 , 
+        "Z_Vel_L": 0.00, 
+        "destinationFileName_L": "PROC-TRAIN2-SIDESTEPS-L-LAR-80BPM.xlsx",
+        "X_Vel_R": 1.22, 
+        "Z_Vel_R": 0.00, 
+        "destinationFileName_R": "PROC-TRAIN2-SIDESTEPS-R-LAR-80BPM.xlsx" 
+    },
+    {
+        "fileName": "RAW-TRAIN2-SIDESTEPS-LR-MED-80BPM.csv", 
+        "X_Vel_L": -0.88, 
+        "Z_Vel_L": 0.00, 
+        "destinationFileName_L": "PROC-TRAIN2-SIDESTEPS-L-MED-80BPM.xlsx",
+        "X_Vel_R": 0.88 , 
+        "Z_Vel_R": 0.00, 
+        "destinationFileName_R": "PROC-TRAIN2-SIDESTEPS-R-MED-80BPM.xlsx" 
+    },
+    {
+        "fileName": "RAW-TRAIN2-SIDESTEPS-LR-MED-110BPM.csv", 
+        "X_Vel_L": -1.21, 
+        "Z_Vel_L": 0.00, 
+        "destinationFileName_L": "PROC-TRAIN2-SIDESTEPS-L-MED-110BPM.xlsx",
+        "X_Vel_R": 1.21, 
+        "Z_Vel_R": 0.00, 
+        "destinationFileName_R": "PROC-TRAIN2-SIDESTEPS-R-MED-110BPM.xlsx" 
+    },
 ]
 
 for fileConfig in FILES_ARRAY:
