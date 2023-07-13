@@ -1,5 +1,5 @@
-inches_per_step = 36
-bpm = 110
+inches_per_step = 18*2
+bpm = 60
 
 # Convert inches to meters
 distance_in_meters = inches_per_step * 0.0254
