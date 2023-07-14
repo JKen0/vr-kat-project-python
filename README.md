@@ -9,3 +9,4 @@ Packages:
 - pip install tensorflow
 - pip install asyncio
 - pip install websockets
+- pip install openpyxl
