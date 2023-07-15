@@ -4,16 +4,23 @@ import json
 import random
 from datetime import datetime
 import numpy as np 
+import os 
+
+# Get the current working directory
+CURRENT_DIRECTORY = os.getcwd()
+# Get the parent directory
+PARENT_DIRECTORY = os.path.dirname(CURRENT_DIRECTORY)
 
 import sys
-sys.path.append('C:/Dev/vr-kat-project-python-2/NeuralNetwork/')
+
+sys.path.append(PARENT_DIRECTORY + '\\NeuralNetwork\\')
 
 from ModelPredictor import ModelPredictor
 
 # IMPORTANT PARAMETERS FOR THE MODEL
 MAX_TIMESTEPS = 10
 NUMBER_OF_FEATURES = 4
-MODEL_PATH = 'C:\\Dev\\vr-kat-project-python-2\\NeuralNetwork\\models\\model2.h5'
+MODEL_PATH = PARENT_DIRECTORY + '\\NeuralNetwork\\models\\model2.h5'
 
         
 # THIS WILL  HANDLE THE MESSAGE RETURNED BY THE WEBSOCKET (AKA. THE GAME)
