@@ -2,9 +2,11 @@ import os
 import pandas as pd
 import numpy as np
 
+# Get the current working directory
+CURRENT_DIRECTORY = os.getcwd()
 
-SOURCE_FOLDER_PATH = "C:\Dev\\vr-kat-project-python-2\processed-training-data\\1-RAW-CSV\TRAIN2\\"
-DESTINATION_FOLDER_PATH = "C:\Dev\\vr-kat-project-python-2\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
+SOURCE_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\1-RAW-CSV\TRAIN2\\"
+DESTINATION_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
 
 # FETCH ALL DATA
 PROCESS_TRAIN2_FOLDER = "C:\Dev\\vr-kat-project-python-2\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"

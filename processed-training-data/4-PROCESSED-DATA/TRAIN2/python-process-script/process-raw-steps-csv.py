@@ -1,7 +1,11 @@
 import pandas as pd
+import os 
 
-SOURCE_FOLDER_PATH = "C:\Dev\\vr-kat-project-python-2\processed-training-data\\1-RAW-CSV\TRAIN2\\"
-DESTINATION_FOLDER_PATH = "C:\Dev\\vr-kat-project-python-2\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
+# Get the current working directory
+CURRENT_DIRECTORY = os.getcwd()
+
+SOURCE_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\1-RAW-CSV\TRAIN2\\"
+DESTINATION_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
 
 FILES_ARRAY = [
     {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-60BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.91, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-60BPM.xlsx" },

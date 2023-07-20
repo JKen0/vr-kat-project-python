@@ -6,7 +6,7 @@ import numpy as np
 CURRENT_DIRECTORY = os.getcwd()
 
 # FETCH ALL DATA
-PROCESS_TRAIN2_FOLDER = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
+PROCESS_TRAIN2_FOLDER = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TEST2\\"
 ALL_FILE_NAMES = [file for file in os.listdir(PROCESS_TRAIN2_FOLDER) if file.endswith('.xlsx') and "AUGMENT" not in file and "STAND" not in file]
 
 
@@ -127,9 +127,5 @@ for fileName in ALL_FILE_NAMES:
 
     #save file 
     augmentedData.to_excel(PROCESS_TRAIN2_FOLDER + stringAugmentFileName, index=False)
-
-
-
-
 
 
