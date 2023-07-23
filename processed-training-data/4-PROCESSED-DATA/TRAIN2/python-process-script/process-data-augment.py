@@ -65,11 +65,19 @@ for fileName in ALL_FILE_NAMES:
 
     # combined augmented data
     augmentedData = pd.concat([standingRows, evenRows, oddRows])
+    
     # replace iteration with index
     augmentedData['Iteration'] = range(len(df))
+    
     # replace new velocities
     augmentedData['X_Vel'] = 2*augmentedData['X_Vel']
     augmentedData['Z_Vel'] = 2*augmentedData['Z_Vel']
+
+    # calculate sensor delta 
+    augmentedData['L_Pitch_Delta'] = augmentedData['L_Pitch'].diff()
+    augmentedData['L_Roll_Delta'] = augmentedData['L_Roll'].diff()
+    augmentedData['R_Pitch_Delta'] = augmentedData['R_Pitch'].diff()
+    augmentedData['R_Roll_Delta'] = augmentedData['R_Roll'].diff()
 
     # update new classification classes
     augmentedData.loc[augmentedData['Notes1'] == 'MOTION_A', [ 'Class_MotionSpeed']] = [newClassificationMotionSpeed] 
@@ -130,10 +138,16 @@ for fileName in ALL_FILE_NAMES:
 
     # combined augmented data
     augmentedData = pd.concat([standingRows, interpolatedDF])
-
+    
     # replace new velocities
     augmentedData['X_Vel'] = 1/2*augmentedData['X_Vel']
     augmentedData['Z_Vel'] = 1/2*augmentedData['Z_Vel']
+
+    # calculate sensor delta 
+    augmentedData['L_Pitch_Delta'] = augmentedData['L_Pitch'].diff()
+    augmentedData['L_Roll_Delta'] = augmentedData['L_Roll'].diff()
+    augmentedData['R_Pitch_Delta'] = augmentedData['R_Pitch'].diff()
+    augmentedData['R_Roll_Delta'] = augmentedData['R_Roll'].diff()
 
     # update new classification classes
     augmentedData.loc[augmentedData['Notes1'] == 'MOTION_A', [ 'Class_MotionSpeed']] = [newClassificationMotionSpeed] 

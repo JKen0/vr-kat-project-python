@@ -23,6 +23,13 @@ for fileConfig in ALL_FILE_NAMES:
     concat_df = pd.concat([df, df, df], ignore_index=True)
     
     concat_df['Iteration'] = range(len(concat_df))
+
+    concat_df['L_Pitch_Delta'] = concat_df['L_Pitch'].diff()
+    concat_df['L_Roll_Delta'] = concat_df['L_Roll'].diff()
+    concat_df['R_Pitch_Delta'] = concat_df['R_Pitch'].diff()
+    concat_df['R_Roll_Delta'] = concat_df['R_Roll'].diff()
+
+
     concat_df[['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']]= ['STAND', 'SML', 'SLOW']
 
     concat_df.to_excel(DESTINATION_FOLDER_PATH + 'PROC' + fileConfig[3:], index=False)

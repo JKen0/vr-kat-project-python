@@ -43,8 +43,13 @@ for fileConfig in FILES_ARRAY:
     # Read the Excel file
     df = pd.read_csv(file_path)
 
+    df['L_Pitch_Delta'] = df['L_Pitch'].diff()
+    df['L_Roll_Delta'] = df['L_Roll'].diff()
+    df['R_Pitch_Delta'] = df['R_Pitch'].diff()
+    df['R_Roll_Delta'] = df['R_Roll'].diff()
+
     # Exclude rows where 'Notes1' is equal to 'CUTOFF'
-    df = df[df['Notes1'] != 'CUTOFF']   
+    df = df[df['Notes1'] != 'CUTOFF']  
 
     # Update the columns based on 'Notes1' values
     df.loc[df['Notes1'] == 'STANDING', ['X_Vel', 'Z_Vel']] = [0, 0]
