@@ -10,6 +10,8 @@ PROCESS_TRAIN2_FOLDER = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCES
 ALL_FILE_NAMES = [file for file in os.listdir(PROCESS_TRAIN2_FOLDER) if file.endswith('.xlsx') and "AUGMENT" not in file and "STAND" not in file]
 
 
+UPPER_BOUND_SLOW_BPM = 61
+UPPER_BOUND_MEDIUM_BPM = 101
 
 #  HEELPER FUNCTION 
 def listToString(s, joinElement = ''):
@@ -27,7 +29,14 @@ def listToString(s, joinElement = ''):
     # return string
     return str1
 
-
+#  HEELPER FUNCTIONS 
+def getClassificationSpeed(bpm):
+    if(bpm < UPPER_BOUND_SLOW_BPM ):
+        return 'SLOW'
+    elif( bpm < UPPER_BOUND_MEDIUM_BPM):
+        return 'AVERAGE'
+    else:
+        return 'FAST'
 
 # LOOP THROUGH EACH FILE
 # THIS WILL TAKE EVERY OTHER SENSOR DATA (THIS WILL HALF CYCLE TIME, DOUBLE SPEED, DOUBLE BPM)
@@ -36,6 +45,8 @@ for fileName in ALL_FILE_NAMES:
     getBPM = numeric_part = ''.join(filter(str.isdigit, fileNameSplit[-1]))
 
     newBPM = 2*int(getBPM)
+
+    newClassificationMotionSpeed = getClassificationSpeed(newBPM)
 
     # Read the Excel file
     df = pd.read_excel(PROCESS_TRAIN2_FOLDER + fileName)
@@ -58,7 +69,10 @@ for fileName in ALL_FILE_NAMES:
     augmentedData['X_Vel'] = 2*augmentedData['X_Vel']
     augmentedData['Z_Vel'] = 2*augmentedData['Z_Vel']
 
-    #update classification class to the new BPM
+    # update new classification classes
+    augmentedData.loc[augmentedData['Notes1'] == 'MOTION_A', [ 'Class_MotionSpeed']] = [newClassificationMotionSpeed] 
+
+    #update classification class to the new BPM (OLD CLASSIFICATION)
     augmentedData['Classification'] = listToString(fileNameSplit[2:-1:2] + ['' + str(newBPM) + 'BPM'], '-')
 
     #create new filename
@@ -79,6 +93,8 @@ for fileName in ALL_FILE_NAMES:
     getBPM = numeric_part = ''.join(filter(str.isdigit, fileNameSplit[-1]))
 
     newBPM = int(1/2*int(getBPM))
+
+    newClassificationMotionSpeed = getClassificationSpeed(newBPM)
 
     # Read the Excel file
     df = pd.read_excel(PROCESS_TRAIN2_FOLDER + fileName)
@@ -117,7 +133,10 @@ for fileName in ALL_FILE_NAMES:
     augmentedData['X_Vel'] = 1/2*augmentedData['X_Vel']
     augmentedData['Z_Vel'] = 1/2*augmentedData['Z_Vel']
 
-    #update classification class to the new BPM
+    # update new classification classes
+    augmentedData.loc[augmentedData['Notes1'] == 'MOTION_A', [ 'Class_MotionSpeed']] = [newClassificationMotionSpeed] 
+
+    #update classification class to the new BPM (OLD CLASSIFICATION)
     augmentedData['Classification'] = listToString(fileNameSplit[2:-1:2] + ['' + str(newBPM) + 'BPM'], '-')
 
 
