@@ -25,6 +25,9 @@ FILES_ARRAY = [
     {"fileName": "RAW-TEST2-STEPS-LR-LAR-92BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.114425, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-92BPM.xlsx" },
     {"fileName": "RAW-TEST2-STEPS-LR-LAR-98BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.23825, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-98BPM.xlsx" },
     {"fileName": "RAW-TEST2-STEPS-LR-LAR-132BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.609725, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-132BPM.xlsx" },
+    {"fileName": "RAW-TEST2-STEPS-LR-SML-50BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.114425, "destinationFileName": "PROC-TEST2-STEPS-LR-SML-50BPM.xlsx" },
+    {"fileName": "RAW-TEST2-STEPS-LR-SML-90BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.23825, "destinationFileName": "PROC-TEST2-STEPS-LR-SML-90BPM.xlsx" },
+    {"fileName": "RAW-TEST2-STEPS-LR-SML-130BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.609725, "destinationFileName": "PROC-TEST2-STEPS-LR-SML-130BPM.xlsx" },
 ]
 
 def getClassificationSpeed(bpm):
@@ -59,8 +62,8 @@ for fileConfig in FILES_ARRAY:
     df = df[df['Notes1'] != 'CUTOFF']   
 
     # Update the columns based on 'Notes1' values
-    df.loc[df['Notes1'] == 'STANDING_A', ['X_Vel', 'Z_Vel', 'Notes1']] = [0, 0, 'STANDING']
     df.loc[df['Notes1'] == 'STANDING_A', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
+    df.loc[df['Notes1'] == 'STANDING_A', ['X_Vel', 'Z_Vel', 'Notes1']] = [0, 0, 'STANDING']
 
     df.loc[df['Notes1'] == 'MOTION_A', ['X_Vel', 'Z_Vel']] = [fileConfig["X_Vel"], fileConfig["Z_Vel"]]   
     df.loc[df['Notes1'] == 'MOTION_A', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = [classificationMotion, classificationMotionType, classificationMotionSpeed] 

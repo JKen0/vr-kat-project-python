@@ -97,6 +97,10 @@ for fileConfig in FILES_ARRAY:
     df = pd.read_csv(file_path)
 
 
+    df['L_Pitch_Delta'] = df['L_Pitch'].diff()
+    df['L_Roll_Delta'] = df['L_Roll'].diff()
+    df['R_Pitch_Delta'] = df['R_Pitch'].diff()
+    df['R_Roll_Delta'] = df['R_Roll'].diff()
 
     # Exclude rows where 'Notes1' is equal to 'CUTOFF'
     df = df[df['Notes1'] != 'CUTOFF']   
@@ -105,21 +109,9 @@ for fileConfig in FILES_ARRAY:
     file_a_df = df[df['Notes1'].isin(['STANDING_A', 'MOTION_A'])]
     file_b_df = df[df['Notes1'].isin(['STANDING_B', 'MOTION_B'])]
 
-    
-
-    file_a_df['L_Pitch_Delta'] = file_a_df['L_Pitch'].diff()
-    file_a_df['L_Roll_Delta'] = file_a_df['L_Roll'].diff()
-    file_a_df['R_Pitch_Delta'] = file_a_df['R_Pitch'].diff()
-    file_a_df['R_Roll_Delta'] = file_a_df['R_Roll'].diff()
-
-    file_b_df['L_Pitch_Delta'] = file_b_df['L_Pitch'].diff()
-    file_b_df['L_Roll_Delta'] = file_b_df['L_Roll'].diff()
-    file_b_df['R_Pitch_Delta'] = file_b_df['R_Pitch'].diff()
-    file_b_df['R_Roll_Delta'] = file_b_df['R_Roll'].diff()
-
     # update values for file A
     file_a_df.loc[df['Notes1'] == 'STANDING_A', ['Notes1', 'X_Vel', 'Z_Vel']] = ['STANDING', 0, 0]
-    file_a_df.loc[df['Notes1'] == 'STANDING_A', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
+    file_a_df.loc[df['Notes1'] == 'STANDING', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
 
     file_a_df.loc[df['Notes1'] == 'MOTION_A', ['X_Vel', 'Z_Vel']] = [fileConfig["X_Vel_L"], fileConfig["Z_Vel_L"]]   
     file_a_df.loc[df['Notes1'] == 'MOTION_A', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['L' + classificationMotion, classificationMotionType, classificationMotionSpeed] 
@@ -127,7 +119,7 @@ for fileConfig in FILES_ARRAY:
 
     # update values for file B
     file_b_df.loc[df['Notes1'] == 'STANDING_B', ['Notes1', 'X_Vel', 'Z_Vel']] = ['STANDING', 0, 0]
-    file_b_df.loc[df['Notes1'] == 'STANDING_B', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
+    file_b_df.loc[df['Notes1'] == 'STANDING', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
 
     file_b_df.loc[df['Notes1'] == 'MOTION_B', ['Notes1','X_Vel', 'Z_Vel']] = [ 'MOTION_A', fileConfig["X_Vel_R"], fileConfig["Z_Vel_R"]]   
     file_b_df.loc[df['Notes1'] == 'MOTION_B', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['R' + classificationMotion, 'R' + classificationMotionType, classificationMotionSpeed] 
