@@ -13,9 +13,9 @@ UPPER_BOUND_MEDIUM_BPM = 101
 FILES_ARRAY = [
     {"fileName": "RAW-TEST2-STEPS-LR-LAR-90BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.3716, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-90BPM.xlsx" },
     {"fileName": "RAW-TEST2-STEPS-LR-LAR-130BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.9812, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-130BPM.xlsx" },
-    {"fileName": "RAW-TEST2-STEPS-LR-MED-90BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.114425, "destinationFileName": "PROC-TEST2-STEPS-LR-MED-90BPM.xlsx" },
-    {"fileName": "RAW-TEST2-STEPS-LR-MED-100BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.23825, "destinationFileName": "PROC-TEST2-STEPS-LR-MED-100BPM.xlsx" },
-    {"fileName": "RAW-TEST2-STEPS-LR-MED-130BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.609725, "destinationFileName": "PROC-TEST2-STEPS-LR-MED-130BPM.xlsx" },
+    {"fileName": "RAW-TEST2-STEPS-LR-LAR-92BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.114425, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-92BPM.xlsx" },
+    {"fileName": "RAW-TEST2-STEPS-LR-LAR-98BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.23825, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-98BPM.xlsx" },
+    {"fileName": "RAW-TEST2-STEPS-LR-LAR-132BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.609725, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-132BPM.xlsx" },
 ]
 
 def getClassificationSpeed(bpm):

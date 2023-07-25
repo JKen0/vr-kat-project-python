@@ -14,10 +14,10 @@ FILES_ARRAY = [
     {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-80BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.22, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-80BPM.xlsx" },
     {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-100BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.52, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-100BPM.xlsx" },
     {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-110BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.68, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-110BPM.xlsx" },
-    {"fileName": "RAW-TRAIN2-STEPS-LR-MED-60BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.51, "destinationFileName": "PROC-TRAIN2-STEPS-LR-MED-60BPM.xlsx" },
-    {"fileName": "RAW-TRAIN2-STEPS-LR-MED-80BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.68, "destinationFileName": "PROC-TRAIN2-STEPS-LR-MED-80BPM.xlsx" },
-    {"fileName": "RAW-TRAIN2-STEPS-LR-MED-100BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.85, "destinationFileName": "PROC-TRAIN2-STEPS-LR-MED-100BPM.xlsx" },
-    {"fileName": "RAW-TRAIN2-STEPS-LR-MED-110BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.93, "destinationFileName": "PROC-TRAIN2-STEPS-LR-MED-110BPM.xlsx" },
+    {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-62BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.51, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-62BPM.xlsx" },
+    {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-82BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.68, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-82BPM.xlsx" },
+    {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-98BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.85, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-98BPM.xlsx" },
+    {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-112BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.93, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-112BPM.xlsx" },
 ]
 
 def getClassificationSpeed(bpm):
