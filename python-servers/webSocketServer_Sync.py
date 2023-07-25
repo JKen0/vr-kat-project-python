@@ -5,19 +5,25 @@ import random
 from datetime import datetime
 import numpy as np 
 import os 
+import sys
 
 # Get the current working directory
 CURRENT_DIRECTORY = os.getcwd()
 
-import sys
+# Open the config file and load its content into a dictionary
+config_file = open(CURRENT_DIRECTORY + '\\config\\config.json')
+CONFIG_DATA = json.load(config_file)
+
+# Close the file after loading the data
+config_file.close()
 
 sys.path.append(CURRENT_DIRECTORY + '\\NeuralNetwork\\')
 
 from ModelPredictor import ModelPredictor
 
 # IMPORTANT PARAMETERS FOR THE MODEL
-MAX_TIMESTEPS = 10
-NUMBER_OF_FEATURES = 4
+MAX_TIMESTEPS = CONFIG_DATA['WINDOW_SIZE']
+NUMBER_OF_FEATURES = CONFIG_DATA["NUMBER_OF_FEATURES"]
 MODEL_PATH = CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\model2.h5'
 
         

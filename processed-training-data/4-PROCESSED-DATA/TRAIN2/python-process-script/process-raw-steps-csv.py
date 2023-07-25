@@ -1,13 +1,26 @@
 import pandas as pd
 import os 
+import json 
 
 # Get the current working directory
 CURRENT_DIRECTORY = os.getcwd()
 
+# Get the current working directory
+CURRENT_DIRECTORY = os.getcwd()
+
+# Open the config file and load its content into a dictionary
+config_file = open(CURRENT_DIRECTORY + '\\config\\config.json')
+CONFIG_DATA = json.load(config_file)
+
+# Close the file after loading the data
+config_file.close()
+
 SOURCE_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\1-RAW-CSV\TRAIN2\\"
 DESTINATION_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
-UPPER_BOUND_SLOW_BPM = 41
-UPPER_BOUND_MEDIUM_BPM = 91
+
+# define BPM bounds between classes
+UPPER_BOUND_SLOW_BPM = CONFIG_DATA['STEPS_UPPER_BOUND_SLOW_BPM']
+UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA['STEPS_UPPER_BOUND_AVERAGE_BPM']
 
 FILES_ARRAY = [
     {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-60BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.91, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-60BPM.xlsx" },
