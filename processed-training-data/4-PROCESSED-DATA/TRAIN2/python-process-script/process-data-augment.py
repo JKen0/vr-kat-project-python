@@ -9,8 +9,8 @@ CURRENT_DIRECTORY = os.getcwd()
 PROCESS_TRAIN2_FOLDER = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
 ALL_FILE_NAMES = [file for file in os.listdir(PROCESS_TRAIN2_FOLDER) if file.endswith('.xlsx') and "AUGMENT" not in file and "STAND" not in file]
 
-UPPER_BOUND_SLOW_BPM = 61
-UPPER_BOUND_MEDIUM_BPM = 101
+UPPER_BOUND_SLOW_BPM = 41
+UPPER_BOUND_MEDIUM_BPM = 91
 
 
 #  HEELPER FUNCTIONS 
