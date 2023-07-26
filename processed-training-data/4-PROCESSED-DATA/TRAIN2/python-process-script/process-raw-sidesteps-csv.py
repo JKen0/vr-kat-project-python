@@ -111,7 +111,7 @@ for fileConfig in FILES_ARRAY:
 
     # update values for file A
     file_a_df.loc[df['Notes1'] == 'STANDING_A', ['Notes1', 'X_Vel', 'Z_Vel']] = ['STANDING', 0, 0]
-    file_a_df.loc[df['Notes1'] == 'STANDING', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
+    file_a_df.loc[df['Notes1'] == 'STANDING_A', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
 
     file_a_df.loc[df['Notes1'] == 'MOTION_A', ['X_Vel', 'Z_Vel']] = [fileConfig["X_Vel_L"], fileConfig["Z_Vel_L"]]   
     file_a_df.loc[df['Notes1'] == 'MOTION_A', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['L' + classificationMotion, classificationMotionType, classificationMotionSpeed] 
@@ -119,7 +119,7 @@ for fileConfig in FILES_ARRAY:
 
     # update values for file B
     file_b_df.loc[df['Notes1'] == 'STANDING_B', ['Notes1', 'X_Vel', 'Z_Vel']] = ['STANDING', 0, 0]
-    file_b_df.loc[df['Notes1'] == 'STANDING', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
+    file_b_df.loc[df['Notes1'] == 'STANDING_B', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['STAND', 'SML', 'SLOW']
 
     file_b_df.loc[df['Notes1'] == 'MOTION_B', ['Notes1','X_Vel', 'Z_Vel']] = [ 'MOTION_A', fileConfig["X_Vel_R"], fileConfig["Z_Vel_R"]]   
     file_b_df.loc[df['Notes1'] == 'MOTION_B', ['Class_Motion', 'Class_MotionType', 'Class_MotionSpeed']] = ['R' + classificationMotion, 'R' + classificationMotionType, classificationMotionSpeed] 
