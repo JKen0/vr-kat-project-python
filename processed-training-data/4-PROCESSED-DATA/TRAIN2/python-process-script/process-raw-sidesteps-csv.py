@@ -78,6 +78,7 @@ def getClassificationSpeed(bpm, upper_bound_slow, upper_bound_average):
     else:
         return 'FAST'
 
+
 for fileConfig in FILES_ARRAY:
     file_path = SOURCE_FOLDER_PATH + fileConfig["fileName"]
 
@@ -90,7 +91,7 @@ for fileConfig in FILES_ARRAY:
     classificationMotion = fileNameSplit[2]
     classificationMotionType = fileNameSplit[4]
 
-    UPPER_BOUND_SLOW_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + 'SIDESTEPS_UPPER_BOUND_SLOW_BPM']
+    UPPER_BOUND_SLOW_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_SLOW_BPM']
     UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_AVERAGE_BPM']
 
     classificationMotionSpeed = getClassificationSpeed(getBPM, UPPER_BOUND_SLOW_BPM, UPPER_BOUND_MEDIUM_BPM)

@@ -1,9 +1,18 @@
 import os
 import pandas as pd
 import numpy as np
+import json
 
 # Get the current working directory
 CURRENT_DIRECTORY = os.getcwd()
+
+# Open the config file and load its content into a dictionary
+config_file = open(CURRENT_DIRECTORY + '\\config\\config.json')
+CONFIG_DATA = json.load(config_file)
+
+# Close the file after loading the data
+config_file.close()
+
 
 # FETCH ALL DATA
 PROCESS_TRAIN2_FOLDER = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TEST2\\"
@@ -30,10 +39,10 @@ def listToString(s, joinElement = ''):
     return str1
 
 #  HEELPER FUNCTIONS 
-def getClassificationSpeed(bpm):
-    if(bpm < UPPER_BOUND_SLOW_BPM ):
+def getClassificationSpeed(bpm, upper_bound_slow, upper_bound_average):
+    if(bpm < upper_bound_slow ):
         return 'SLOW'
-    elif( bpm < UPPER_BOUND_MEDIUM_BPM):
+    elif( bpm < upper_bound_average):
         return 'AVERAGE'
     else:
         return 'FAST'
@@ -46,7 +55,14 @@ for fileName in ALL_FILE_NAMES:
 
     newBPM = 2*int(getBPM)
 
-    newClassificationMotionSpeed = getClassificationSpeed(newBPM)
+    # calculae the classification classes
+    classificationMotion = fileNameSplit[2]
+    classificationMotionType = fileNameSplit[4]
+
+    UPPER_BOUND_SLOW_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_SLOW_BPM']
+    UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_AVERAGE_BPM']
+
+    newClassificationMotionSpeed = getClassificationSpeed(newBPM, UPPER_BOUND_SLOW_BPM, UPPER_BOUND_MEDIUM_BPM)
 
     # Read the Excel file
     df = pd.read_excel(PROCESS_TRAIN2_FOLDER + fileName)
@@ -102,7 +118,14 @@ for fileName in ALL_FILE_NAMES:
 
     newBPM = int(1/2*int(getBPM))
 
-    newClassificationMotionSpeed = getClassificationSpeed(newBPM)
+    # calculae the classification classes
+    classificationMotion = fileNameSplit[2]
+    classificationMotionType = fileNameSplit[4]
+
+    UPPER_BOUND_SLOW_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_SLOW_BPM']
+    UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_AVERAGE_BPM']
+
+    newClassificationMotionSpeed = getClassificationSpeed(newBPM, UPPER_BOUND_SLOW_BPM, UPPER_BOUND_MEDIUM_BPM)
 
     # Read the Excel file
     df = pd.read_excel(PROCESS_TRAIN2_FOLDER + fileName)

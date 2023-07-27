@@ -29,10 +29,10 @@ FILES_ARRAY = [
     {"fileName": "RAW-TRAIN2-STEPS-LR-SML-110BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.93, "destinationFileName": "PROC-TRAIN2-STEPS-LR-SML-110BPM.xlsx" },
 ]
 
-def getClassificationSpeed(bpm):
-    if(bpm < UPPER_BOUND_SLOW_BPM ):
+def getClassificationSpeed(bpm, upper_bound_slow, upper_bound_average):
+    if(bpm < upper_bound_slow ):
         return 'SLOW'
-    elif( bpm < UPPER_BOUND_MEDIUM_BPM):
+    elif( bpm < upper_bound_average):
         return 'AVERAGE'
     else:
         return 'FAST'
@@ -49,7 +49,7 @@ for fileConfig in FILES_ARRAY:
     classificationMotion = fileNameSplit[2]
     classificationMotionType = fileNameSplit[4]
 
-    UPPER_BOUND_SLOW_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + 'SIDESTEPS_UPPER_BOUND_SLOW_BPM']
+    UPPER_BOUND_SLOW_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_SLOW_BPM']
     UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_AVERAGE_BPM']
 
     classificationMotionSpeed = getClassificationSpeed(getBPM, UPPER_BOUND_SLOW_BPM, UPPER_BOUND_MEDIUM_BPM)
