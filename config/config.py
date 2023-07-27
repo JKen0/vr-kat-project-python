@@ -25,3 +25,12 @@ def count_sequences_above_threshold(data, threshold):
 
 def normalize_sensor_data(sensor_input):
     return (sensor_input + 180)/360
+
+
+def getClassificationSpeed(bpm, upper_bound_slow, upper_bound_average):
+    if(bpm < upper_bound_slow ):
+        return 'SLOW'
+    elif( bpm < upper_bound_average):
+        return 'AVERAGE'
+    else:
+        return 'FAST'
