@@ -15,9 +15,6 @@ config_file.close()
 SOURCE_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\1-RAW-CSV\TEST2\\"
 DESTINATION_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TEST2\\"
 
-# define BPM bounds between classes
-UPPER_BOUND_SLOW_BPM = CONFIG_DATA['STEPS_UPPER_BOUND_SLOW_BPM']
-UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA['STEPS_UPPER_BOUND_AVERAGE_BPM']
 
 FILES_ARRAY = [
     {"fileName": "RAW-TEST2-STEPS-LR-LAR-90BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.3716, "destinationFileName": "PROC-TEST2-STEPS-LR-LAR-90BPM.xlsx" },
