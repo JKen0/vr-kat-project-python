@@ -15,10 +15,6 @@ config_file.close()
 SOURCE_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\1-RAW-CSV\TRAIN2\\"
 DESTINATION_FOLDER_PATH = CURRENT_DIRECTORY + "\\processed-training-data\\4-PROCESSED-DATA\TRAIN2\\"
 
-# define BPM bounds between classes
-UPPER_BOUND_SLOW_BPM = CONFIG_DATA['SIDESTEPS_UPPER_BOUND_SLOW_BPM']
-UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA['SIDESTEPS_UPPER_BOUND_AVERAGE_BPM']
-
 FILES_ARRAY = [
     {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-60BPM.csv", "X_Vel": 0.0 , "Z_Vel": 0.91, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-60BPM.xlsx" },
     {"fileName": "RAW-TRAIN2-STEPS-LR-LAR-80BPM.csv", "X_Vel": 0.0 , "Z_Vel": 1.22, "destinationFileName": "PROC-TRAIN2-STEPS-LR-LAR-80BPM.xlsx" },
@@ -49,9 +45,14 @@ for fileConfig in FILES_ARRAY:
     getBPM = ''.join(filter(str.isdigit, fileNameSplit[-1]))
     getBPM = float(getBPM)
 
+    # calculae the classification classes
     classificationMotion = fileNameSplit[2]
     classificationMotionType = fileNameSplit[4]
-    classificationMotionSpeed = getClassificationSpeed(getBPM)
+
+    UPPER_BOUND_SLOW_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + 'SIDESTEPS_UPPER_BOUND_SLOW_BPM']
+    UPPER_BOUND_MEDIUM_BPM = CONFIG_DATA[classificationMotionType + '_' + classificationMotion + '_UPPER_BOUND_AVERAGE_BPM']
+
+    classificationMotionSpeed = getClassificationSpeed(getBPM, UPPER_BOUND_SLOW_BPM, UPPER_BOUND_MEDIUM_BPM)
 
     # Read the Excel file
     df = pd.read_csv(file_path)
