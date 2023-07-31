@@ -54,3 +54,27 @@ def getClassificationSpeed(bpm, upper_bound_slow, upper_bound_average):
         return 'AVERAGE'
     else:
         return 'FAST'
+    
+def calculateSensorDeltas(sensor_data):
+    return np.diff(sensor_data, axis=0)
+
+def calculateAbsSensorDeltas(delta_data):
+    abs_delta_data = np.abs(delta_data)
+
+    total_deltas_changes = np.sum(abs_delta_data, axis=0)
+
+    return total_deltas_changes
+
+def calculateMaxSensorData(sensor_data):
+    return np.max(sensor_data, axis=0)
+
+def calculateMinSensorData(sensor_data):
+    return np.min(sensor_data, axis=0)
+
+def prediction_class_label(prediction_prob, ALL_CLASSES):
+    pred_class_index = np.argmax(prediction_prob, axis=-1) 
+
+    pred_class_label = ALL_CLASSES[pred_class_index[0]]
+
+    return pred_class_label
+
