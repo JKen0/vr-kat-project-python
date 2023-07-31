@@ -56,8 +56,8 @@ predict_motion_rsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\mod
 predict_motiontype_lar_steps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-lar-steps-2.h5')
 predict_motiontype_sml_steps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-sml-steps-2.h5')
 
-#predict_motiontype_lar_lsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-lar-lsidesteps-2.h5')
-#predict_motiontype_sml_lsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-sml-lsidesteps-2.h5')
+predict_motiontype_lar_lsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-lar-lsidesteps-2.h5')
+predict_motiontype_sml_lsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-sml-lsidesteps-2.h5')
 
 predict_motiontype_lar_rsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-lar-rsidesteps-2.h5')
 predict_motiontype_sml_rsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\standard-backprop-motionspeed-sml-rsidesteps-2.h5')
@@ -80,15 +80,12 @@ def process_request(message):
     # Process the request and return the response
     sensor_data = json.loads(message)
 
-    #input_sensor_data = np.reshape(np.array(sensor_data), (MAX_TIMESTEPS + 1, NUMBER_OF_FEATURES))
+    input_sensor_data = np.reshape(np.array(sensor_data), (MAX_TIMESTEPS + 1, NUMBER_OF_FEATURES))
 
-    #input_delta_data = calculateSensorDeltas(input_sensor_data)
+    input_delta_data = calculateSensorDeltas(input_sensor_data)
 
-    #input_total_deltas = calculateAbsSensorDeltas(input_delta_data)
-    #input_total_deltas = np.reshape(input_total_deltas, (1, NUMBER_OF_FEATURES))
-
-    input_total_deltas = np.array([0, 0, 0, 0])
-    input_total_deltas = np.reshape(input_total_deltas, (1, 4))
+    input_total_deltas = calculateAbsSensorDeltas(input_delta_data)
+    input_total_deltas = np.reshape(input_total_deltas, (1, NUMBER_OF_FEATURES))
 
     motion_prediction = predict_motion.predict(input_total_deltas)
     motion_label = prediction_class_label(motion_prediction, CLASSES_MOTION)
@@ -96,20 +93,25 @@ def process_request(message):
     if(motion_label == 'STANDING'):
         motion_config = CONFIG_VELOCITY_DATA[motion_label]
 
-    #elif(motion_label == "STEPS"):
+    elif(motion_label == "STEPS"):
+        max_sensor_data = calculateMaxSensorData(input_sensor_data)
+        max_pitch_reading = np.max(max_sensor_data[:, [0, 2]])
+
+        motiontype_prediction = predict_motiontype_steps.predict(max_pitch_reading)
+        motiontype_label = prediction_class_label(motiontype_prediction, CLASSES_MOTIONTYPE)
+
 
     #elif(motion_label == "LSIDESTEPS"):
     
     #elif(motion_label == "RSIDESTEPS"):
 
-    print(motion_label)
 
     response['x_velocity'] == motion_config['x_velocity']
     response['z_velocity'] == motion_config['z_velocity']
 
     return response
 
-print(process_request("[]"))
+
 
 
 # CREATE WEBSOCKET SERVER ON PORT 3003
