@@ -109,8 +109,6 @@ def process_request(message):
     input_total_deltas = calculateAbsSensorDeltas(input_delta_data)
     input_total_deltas = np.reshape(input_total_deltas, (1, NUMBER_OF_FEATURES))
 
-    print(input_delta_data[-WINDOW_SIZE_MOTION:])
-
     input_total_deltas_for_motion = calculateAbsSensorDeltas(input_delta_data[-WINDOW_SIZE_MOTION:])
     input_total_deltas_for_motion = np.reshape(input_total_deltas_for_motion, (1, NUMBER_OF_FEATURES))
 
@@ -140,7 +138,6 @@ def process_request(message):
         motiontype_prediction = predict_motiontype_steps.predict(max_pitch_reading, verbose=0)
         motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
 
-        print(motiontype_label)
 
         if(motiontype_label == "LAR"):
             process_motionspeed_inputs = processStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_STEPS_PITCH_ROTATION_THRESHOLD)
@@ -171,8 +168,6 @@ def process_request(message):
         
         process_motiontype_inputs = input_minmax[[1, 5]]
         process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 2))
-
-        print(process_motiontype_inputs)
 
         #predict motiontype
         motiontype_prediction = predict_motiontype_lsidesteps.predict(process_motiontype_inputs, verbose=0)
@@ -258,7 +253,7 @@ for i in range(len(test_data) - WINDOW_SIZE_MOTION - 1):
     for j in columns_to_change:
         test_data[i][j] = np.random.randint(lower_bound, upper_bound)
 
-print(test_data)
+#print(test_data)
 
 test_data_list = test_data.tolist()
 
