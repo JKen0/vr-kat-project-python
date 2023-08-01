@@ -78,3 +78,43 @@ def prediction_class_label(prediction_prob, ALL_CLASSES):
 
     return pred_class_label
 
+def prediction_class_label_binary(prediction_prob, ALL_CLASSES):
+    prediction_class_int = int(np.rint(prediction_prob))
+
+    pred_class_label = ALL_CLASSES[prediction_class_int]
+
+    return pred_class_label
+
+def processStepsMotionSpeed(sensor_data, total_deltas_data, threshold):
+
+    input_total_sequences = count_sequences_above_threshold(sensor_data, threshold)
+
+    input_data_array = np.concatenate((total_deltas_data, input_total_sequences))
+
+    # SUM THE TOTAL PITCH DELTAS
+    SUM_SENSOR_DELTAS = np.sum(input_data_array[:, [0,2]], axis=1)
+
+    # SUM THE TOTAL NUMBER OF SEQUENCES
+    SUM_SEQUENCES = np.sum(input_data_array[:, [4, 6]], axis=1)
+
+    return np.column_stack((SUM_SENSOR_DELTAS, SUM_SEQUENCES))
+
+def processLSideStepsMotionSpeed(sensor_data, total_deltas_data, threshold):
+
+    input_total_sequences = count_sequences_below_threshold(sensor_data, threshold)
+
+    input_data_array = np.concatenate((total_deltas_data, input_total_sequences))
+
+    extracted_results = input_data_array[:, [1,5]]
+
+    return extracted_results
+
+def processRLarSideStepsMotionSpeed(sensor_data, total_deltas_data, threshold):
+    
+    input_total_sequences = count_sequences_below_threshold(sensor_data, threshold)
+
+    input_data_array = np.concatenate((total_deltas_data, input_total_sequences))
+
+    extracted_results = input_data_array[:, [1,5]]
+
+    return extracted_results
