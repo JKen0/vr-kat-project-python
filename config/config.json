@@ -1,5 +1,6 @@
 {
     "WINDOW_SIZE": 25,
+    "WINDOW_SIZE_MOTION": 12,
     "NUMBER_OF_FEATURES": 4, 
     "NUMBER_OF_EPOCHS": 12,
 

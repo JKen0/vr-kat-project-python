@@ -27,15 +27,19 @@ config_velocity_file.close()
 sys.path.append(CURRENT_DIRECTORY + '\\NeuralNetwork\\')
 from ModelPredictor import ModelPredictor
 sys.path.append(CURRENT_DIRECTORY + '\\config\\')
-from config import normalize_sensor_data, calculateSensorDeltas, calculateAbsSensorDeltas, calculateMaxSensorData, calculateMinSensorData, count_sequences_above_threshold, count_sequences_below_threshold, prediction_class_label, processStepsMotionSpeed, prediction_class_label_binary, processLSideStepsMotionSpeed, processRLarSideStepsMotionSpeed
+from config import normalize_sensor_data, calculateSensorDeltas, calculateAbsSensorDeltas, calculateMaxSensorData, calculateMinSensorData, prediction_class_label, processStepsMotionSpeed, prediction_class_label_binary, processLSideStepsMotionSpeed, processRLarSideStepsMotionSpeed
 
 # ##############################################################
 # IMPORT THE NUMBER OF PARAMETERS WE NEED
 # ##############################################################
 
 MAX_TIMESTEPS = CONFIG_DATA['WINDOW_SIZE']
+WINDOW_SIZE_MOTION = CONFIG_DATA['WINDOW_SIZE_MOTION']
 NUMBER_OF_FEATURES = CONFIG_DATA["NUMBER_OF_FEATURES"]
+
 ENABLE_CONSTANT_DELTA_SPEED = CONFIG_DATA["ENABLE_CONSTANT_DELTA_SPEED"]
+ENABLE_NORMALIZE_SENSOR_DATA = CONFIG_DATA["NORMALIZE_SENSOR_DATA"]
+
 MODEL_PATH = CURRENT_DIRECTORY + '\\NeuralNetwork\\models\\model2.h5'
 
 CLASSES_MOTION = CONFIG_DATA["CLASSES_MOTION"]
@@ -53,7 +57,7 @@ LAR_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD = CONFIG_DATA["LAR_L_SIDESTEPS_ROLL_ROTA
 LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD = CONFIG_DATA["LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD"]
 
 ############################################################
-# IMPORT ALL OF THE MODELS WE NEED FOR OUR PREDICTION
+# IMPORT ALL OF THE NEURAL NETWORK MODELS WE NEED FOR OUR PREDICTION
 ############################################################
 
 # LAYER 1
@@ -79,6 +83,7 @@ predict_motionspeed_sml_rsidesteps = load_model(CURRENT_DIRECTORY + '\\NeuralNet
 # THIS WILL HANDLE THE MESSAGE RETURNED BY THE WEBSOCKET (AKA. THE GAME)
 ########################################################################
 def process_request(message):
+    #define labels and response
     motion_label = ""
     motiontype_label = ""
     motionspeed_label = ""
@@ -95,12 +100,23 @@ def process_request(message):
 
     input_sensor_data = np.reshape(np.array(sensor_data), (MAX_TIMESTEPS + 1, NUMBER_OF_FEATURES))
 
+    if(ENABLE_NORMALIZE_SENSOR_DATA == True):
+        input_sensor_data = np.vectorize(normalize_sensor_data)(input_sensor_data)
+
+    # calculate deltas and total deltas
     input_delta_data = calculateSensorDeltas(input_sensor_data)
 
     input_total_deltas = calculateAbsSensorDeltas(input_delta_data)
     input_total_deltas = np.reshape(input_total_deltas, (1, NUMBER_OF_FEATURES))
 
-    motion_prediction = predict_motion.predict(input_total_deltas)
+    print(input_delta_data[-WINDOW_SIZE_MOTION:])
+
+    input_total_deltas_for_motion = calculateAbsSensorDeltas(input_delta_data[-WINDOW_SIZE_MOTION:])
+    input_total_deltas_for_motion = np.reshape(input_total_deltas_for_motion, (1, NUMBER_OF_FEATURES))
+
+
+    # PREDICT MOTION
+    motion_prediction = predict_motion.predict(input_total_deltas_for_motion, verbose=0)
     motion_label = prediction_class_label(motion_prediction, CLASSES_MOTION)
 
     ##########################################
@@ -115,22 +131,30 @@ def process_request(message):
     ##########################################
     elif(motion_label == "STEPS"):
         max_sensor_data = calculateMaxSensorData(input_sensor_data)
-        max_pitch_reading = np.max(max_sensor_data[:, [0, 2]], axis=1)
 
-        motiontype_prediction = predict_motiontype_steps.predict(max_pitch_reading)
+        max_pitch_reading = np.max(max_sensor_data[[0, 2]])
+
+        max_pitch_reading = np.reshape(max_pitch_reading, ((1, 1)))
+        
+        #predict motiontype
+        motiontype_prediction = predict_motiontype_steps.predict(max_pitch_reading, verbose=0)
         motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
+
+        print(motiontype_label)
 
         if(motiontype_label == "LAR"):
             process_motionspeed_inputs = processStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_STEPS_PITCH_ROTATION_THRESHOLD)
 
-            motionspeed_prediction = predict_motionspeed_lar_steps.predict(process_motionspeed_inputs)
+            # predict motionspeed
+            motionspeed_prediction = predict_motionspeed_lar_steps.predict(process_motionspeed_inputs, verbose=0)
             motionspeed_label = prediction_class_label(motionspeed_prediction, CLASSES_MOTIONSPEED)
 
 
         elif(motiontype_label == "SML"):
             process_motionspeed_inputs = processStepsMotionSpeed(input_sensor_data, input_total_deltas, SML_STEPS_PITCH_ROTATION_THRESHOLD)
 
-            motionspeed_prediction = predict_motionspeed_sml_steps.predict(process_motionspeed_inputs)
+            # predict motionspeed
+            motionspeed_prediction = predict_motionspeed_sml_steps.predict(process_motionspeed_inputs, verbose=0)
             motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
 
         motion_config = CONFIG_VELOCITY_DATA[motion_label + '-' + motiontype_label + '-' + motionspeed_label]
@@ -143,22 +167,29 @@ def process_request(message):
         max_sensor_data = calculateMaxSensorData(input_sensor_data)
         min_sensor_data = calculateMinSensorData(input_sensor_data)
 
-        input_minmax = np.column_stack((max_sensor_data, min_sensor_data))
-        process_motiontype_inputs = input_minmax[:, [1, 5]]
+        input_minmax = np.concatenate((max_sensor_data, min_sensor_data))
+        
+        process_motiontype_inputs = input_minmax[[1, 5]]
+        process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 2))
 
-        motiontype_prediction = predict_motiontype_lsidesteps.predict(process_motiontype_inputs)
+        print(process_motiontype_inputs)
+
+        #predict motiontype
+        motiontype_prediction = predict_motiontype_lsidesteps.predict(process_motiontype_inputs, verbose=0)
         motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
 
         if(motiontype_label == "LAR"):
             process_motionspeed_inputs = processLSideStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
 
-            motionspeed_prediction = predict_motionspeed_lar_lsidesteps.predict(process_motionspeed_inputs)
+            #predict motionspeed
+            motionspeed_prediction = predict_motionspeed_lar_lsidesteps.predict(process_motionspeed_inputs, verbose=0)
             motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
 
         elif(motiontype_label == "SML"):
             process_motionspeed_inputs = processLSideStepsMotionSpeed(input_sensor_data, input_total_deltas, SML_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
 
-            motionspeed_prediction = predict_motionspeed_sml_lsidesteps.predict(process_motionspeed_inputs)
+            #predict motionspeed
+            motionspeed_prediction = predict_motionspeed_sml_lsidesteps.predict(process_motionspeed_inputs, verbose=0)
             motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
     
         motion_config = CONFIG_VELOCITY_DATA[motion_label + '-' + motiontype_label + '-' + motionspeed_label]
@@ -171,15 +202,19 @@ def process_request(message):
         max_sensor_data = calculateMaxSensorData(input_sensor_data)
         min_sensor_data = calculateMinSensorData(input_sensor_data)
 
-        input_minmax = np.column_stack((max_sensor_data, min_sensor_data))
+        input_minmax = np.concatenate((max_sensor_data, min_sensor_data))
+        
         process_motiontype_inputs = input_minmax[:, [3, 7]]
+        process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 2))
 
+        #predict motiontype
         motiontype_prediction = predict_motiontype_rsidesteps.predict(process_motiontype_inputs)
         motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
 
         if(motiontype_label == "LAR"):
             process_motionspeed_inputs = processRLarSideStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
 
+            #predict motionspeed
             motionspeed_prediction = predict_motionspeed_lar_lsidesteps.predict(process_motionspeed_inputs)
             motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
 
@@ -189,7 +224,6 @@ def process_request(message):
 
 
         motion_config = CONFIG_VELOCITY_DATA[motion_label + '-' + motiontype_label + '-' + motionspeed_label]
-
 
     #######################
     # ASSIGN VELOCITIES 
@@ -215,10 +249,26 @@ def process_request(message):
 
     return response
 
+test_data = np.zeros((26,4))
+upper_bound = 50
+lower_bound = -50
+columns_to_change = [0]
+
+for i in range(len(test_data) - WINDOW_SIZE_MOTION - 1):
+    for j in columns_to_change:
+        test_data[i][j] = np.random.randint(lower_bound, upper_bound)
+
+print(test_data)
+
+test_data_list = test_data.tolist()
+
+
+process_request(json.dumps(test_data_list))
+
 
 #######################################################################
 # CREATE WEBSOCKET SERVER ON PORT 3003
-# THIS SERVER IS HOW OUR GAME WILL COMMUNICATE TO OUR PYTHON SCRIPTs
+# THIS SERVER IS HOW OUR GAME WILL COMMUNICATE TO OUR PYTHON SCRIPTS
 ########################################################################
 async def handle_websocket(websocket, path):
     print(str(datetime.now()) + ": Client connected")
