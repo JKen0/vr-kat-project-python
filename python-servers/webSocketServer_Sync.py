@@ -202,21 +202,21 @@ def process_request(message):
         process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 3))
 
         #predict motiontype
-        motiontype_prediction = predict_motiontype_rsidesteps.predict(process_motiontype_inputs)
+        motiontype_prediction = predict_motiontype_rsidesteps.predict(process_motiontype_inputs, verbose=0)
         motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
 
         if(motiontype_label == "LAR"):
             process_motionspeed_inputs = processRSideStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
 
             #predict motionspeed
-            motionspeed_prediction = predict_motionspeed_lar_rsidesteps.predict(process_motionspeed_inputs)
+            motionspeed_prediction = predict_motionspeed_lar_rsidesteps.predict(process_motionspeed_inputs, verbose=0)
             motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
 
         elif(motiontype_label == "SML"):
             process_motionspeed_inputs = processRSideStepsMotionSpeed(input_sensor_data, input_total_deltas, SML_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
 
             #predict motionspeed
-            motionspeed_prediction = predict_motionspeed_sml_rsidesteps.predict(process_motionspeed_inputs)
+            motionspeed_prediction = predict_motionspeed_sml_rsidesteps.predict(process_motionspeed_inputs, verbose=0)
             motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
 
 
@@ -246,21 +246,24 @@ def process_request(message):
 
     return response
 
-test_data = np.zeros((26,4))
-upper_bound = 20
-lower_bound = -20
-columns_to_change = [0, 2]
+############################
+## TEST PROCESS FUNCTION (FOR DEV PURPOSES)
+############################
+#test_data = np.zeros((26,4))
+#upper_bound = 4
+#lower_bound = -4
+#columns_to_change = [3]
 
-for i in range(len(test_data)):
-    for j in columns_to_change:
-        test_data[i][j] = np.random.randint(lower_bound, upper_bound)
+#for i in range(len(test_data)):
+#    for j in columns_to_change:
+#        test_data[i][j] = np.random.randint(lower_bound, upper_bound)
 
-print(test_data)
+#print(test_data)
 
-test_data_list = test_data.tolist()
+#test_data_list = test_data.tolist()
 
 
-process_request(json.dumps(test_data_list))
+#process_request(json.dumps(test_data_list))
 
 
 #######################################################################

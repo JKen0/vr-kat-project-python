@@ -1,7 +1,12 @@
 # vr-kat-project-research
 # TO-DO need to clean this up before august 5
 
-Packages:
+
+# Installation
+
+## Required Python Packages
+
+To use this project, you need to have the following Python packages installed:
 
 - pip install pandas
 - pip install numpy
