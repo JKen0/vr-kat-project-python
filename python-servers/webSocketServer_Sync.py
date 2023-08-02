@@ -240,8 +240,8 @@ def process_request(message):
         response['x_velocity'] = motion_config['x_velocity']
         response['z_velocity'] = motion_config['z_velocity']
 
-    print(motion_label + '-' + motiontype_label + '-' + motionspeed_label)
-    print(response)
+    #print(motion_label + '-' + motiontype_label + '-' + motionspeed_label)
+    #print(response)
 
     return response
 

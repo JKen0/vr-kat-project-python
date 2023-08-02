@@ -1,5 +1,5 @@
 {
-    "STANDING":                 {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
+    "STAND":                 {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
 
     "STEPS-LAR-SLOW":           {"x_velocity": 0.000, "z_velocity": 0.500, "addConstant": 0.001},
     "STEPS-LAR-AVERAGE":        {"x_velocity": 0.000, "z_velocity": 0.912, "addConstant": 0.001},
