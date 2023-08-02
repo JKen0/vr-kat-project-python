@@ -111,13 +111,13 @@ def processLSideStepsMotionSpeed(sensor_data, total_deltas_data, threshold):
 
     return extracted_results
 
-def processRLarSideStepsMotionSpeed(sensor_data, total_deltas_data, threshold):
+def processRSideStepsMotionSpeed(sensor_data, total_deltas_data, threshold):
     
     input_total_sequences = count_sequences_below_threshold(sensor_data, threshold)
     input_total_sequences = np.reshape(input_total_sequences, (1,4))
 
     input_data_array = np.column_stack((total_deltas_data, input_total_sequences))
 
-    extracted_results = input_data_array[:, [1,5]]
+    extracted_results = input_data_array[:, [3,7]]
 
     return extracted_results

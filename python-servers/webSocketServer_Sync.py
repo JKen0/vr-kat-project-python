@@ -24,10 +24,8 @@ config_velocity_file.close()
 # IMPORT LOCAL OUT OF SCRIPT FUNCTIONS
 ############################################################
 
-sys.path.append(CURRENT_DIRECTORY + '\\NeuralNetwork\\')
-from ModelPredictor import ModelPredictor
 sys.path.append(CURRENT_DIRECTORY + '\\config\\')
-from config import normalize_sensor_data, calculateSensorDeltas, calculateAbsSensorDeltas, calculateMaxSensorData, calculateMinSensorData, prediction_class_label, processStepsMotionSpeed, prediction_class_label_binary, processLSideStepsMotionSpeed, processRLarSideStepsMotionSpeed
+from config import normalize_sensor_data, calculateSensorDeltas, calculateAbsSensorDeltas, calculateMaxSensorData, calculateMinSensorData, prediction_class_label, processStepsMotionSpeed, prediction_class_label_binary, processLSideStepsMotionSpeed, processRSideStepsMotionSpeed
 
 # ##############################################################
 # IMPORT THE NUMBER OF PARAMETERS WE NEED
@@ -166,8 +164,8 @@ def process_request(message):
 
         input_minmax = np.concatenate((min_sensor_data, max_sensor_data))
         
-        process_motiontype_inputs = input_minmax[[1, 5]]
-        process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 2))
+        process_motiontype_inputs = input_minmax[[1, 4, 5]]
+        process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 3))
 
         #predict motiontype
         motiontype_prediction = predict_motiontype_lsidesteps.predict(process_motiontype_inputs, verbose=0)
@@ -200,23 +198,26 @@ def process_request(message):
 
         input_minmax = np.concatenate((min_sensor_data, max_sensor_data))
         
-        process_motiontype_inputs = input_minmax[[3, 7]]
-        process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 2))
+        process_motiontype_inputs = input_minmax[[3, 6, 7]]
+        process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 3))
 
         #predict motiontype
         motiontype_prediction = predict_motiontype_rsidesteps.predict(process_motiontype_inputs)
         motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
 
         if(motiontype_label == "LAR"):
-            process_motionspeed_inputs = processRLarSideStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
+            process_motionspeed_inputs = processRSideStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
 
             #predict motionspeed
-            motionspeed_prediction = predict_motionspeed_lar_lsidesteps.predict(process_motionspeed_inputs)
+            motionspeed_prediction = predict_motionspeed_lar_rsidesteps.predict(process_motionspeed_inputs)
             motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
 
         elif(motiontype_label == "SML"):
-            motionspeed_label = "FAST"
-            print("TO DO")
+            process_motionspeed_inputs = processRSideStepsMotionSpeed(input_sensor_data, input_total_deltas, SML_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
+
+            #predict motionspeed
+            motionspeed_prediction = predict_motionspeed_sml_rsidesteps.predict(process_motionspeed_inputs)
+            motionspeed_label = prediction_class_label_binary(motionspeed_prediction, CLASSES_MOTIONSPEED_2)
 
 
         motion_config = CONFIG_VELOCITY_DATA[motion_label + '-' + motiontype_label + '-' + motionspeed_label]
