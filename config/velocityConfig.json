@@ -1,23 +1,23 @@
 {
     "STANDING":                 {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
 
-    "STEPS-LAR-SLOW":           {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "STEPS-LAR-AVERAGE":        {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "STEPS-LAR-FAST":           {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
+    "STEPS-LAR-SLOW":           {"x_velocity": 0.000, "z_velocity": 0.500, "addConstant": 0.001},
+    "STEPS-LAR-AVERAGE":        {"x_velocity": 0.000, "z_velocity": 0.912, "addConstant": 0.001},
+    "STEPS-LAR-FAST":           {"x_velocity": 0.000, "z_velocity": 1.620, "addConstant": 0.001},
 
-    "STEPS-SML-SLOW":           {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "STEPS-SML-AVERAGE":        {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "STEPS-SML-FAST":           {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
+    "STEPS-SML-SLOW":           {"x_velocity": 0.000, "z_velocity": 0.300, "addConstant": 0.001},
+    "STEPS-SML-AVERAGE":        {"x_velocity": 0.000, "z_velocity": 0.620, "addConstant": 0.001},
+    "STEPS-SML-FAST":           {"x_velocity": 0.000, "z_velocity": 1.200, "addConstant": 0.001},
 
-    "LSIDESTEPS-LAR-AVERAGE":   {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "LSIDESTEPS-LAR-FAST":      {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
+    "LSIDESTEPS-LAR-AVERAGE":   {"x_velocity": -0.920, "z_velocity": 0.000, "addConstant": -0.005},
+    "LSIDESTEPS-LAR-FAST":      {"x_velocity": -1.200, "z_velocity": 0.000, "addConstant": -0.005},
 
-    "LSIDESTEPS-SML-AVERAGE":   {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "LSIDESTEPS-SML-FAST":      {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
+    "LSIDESTEPS-SML-AVERAGE":   {"x_velocity": -0.400, "z_velocity": 0.000, "addConstant": -0.005},
+    "LSIDESTEPS-SML-FAST":      {"x_velocity": -0.800, "z_velocity": 0.000, "addConstant": -0.005},
 
-    "RSIDESTEPS-LAR-AVERAGE":   {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "RSIDESTEPS-LAR-FAST":      {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
+    "RSIDESTEPS-LAR-AVERAGE":   {"x_velocity": 0.920, "z_velocity": 0.000, "addConstant": 0.005},
+    "RSIDESTEPS-LAR-FAST":      {"x_velocity": 1.200, "z_velocity": 0.000, "addConstant": 0.005},
 
-    "RSIDESTEPS-SML-AVERAGE":   {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000},
-    "RSIDESTEPS-SML-FAST":      {"x_velocity": 0.000, "z_velocity": 0.000, "addConstant": 0.000}
+    "RSIDESTEPS-SML-AVERAGE":   {"x_velocity": 0.400, "z_velocity": 0.000, "addConstant": 0.005},
+    "RSIDESTEPS-SML-FAST":      {"x_velocity": 0.800, "z_velocity": 0.000, "addConstant": 0.005}
 }

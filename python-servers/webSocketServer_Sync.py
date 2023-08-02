@@ -118,9 +118,9 @@ def process_request(message):
     motion_label = prediction_class_label(motion_prediction, CLASSES_MOTION)
 
     ##########################################
-    # LOGIC IF MOTION IS STANDING
+    # LOGIC IF MOTION IS STAND
     ##########################################
-    if(motion_label == 'STANDING'):
+    if(motion_label == 'STAND'):
         motion_config = CONFIG_VELOCITY_DATA[motion_label]
 
 
@@ -164,7 +164,7 @@ def process_request(message):
         max_sensor_data = calculateMaxSensorData(input_sensor_data)
         min_sensor_data = calculateMinSensorData(input_sensor_data)
 
-        input_minmax = np.concatenate((max_sensor_data, min_sensor_data))
+        input_minmax = np.concatenate((min_sensor_data, max_sensor_data))
         
         process_motiontype_inputs = input_minmax[[1, 5]]
         process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 2))
@@ -172,6 +172,7 @@ def process_request(message):
         #predict motiontype
         motiontype_prediction = predict_motiontype_lsidesteps.predict(process_motiontype_inputs, verbose=0)
         motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
+
 
         if(motiontype_label == "LAR"):
             process_motionspeed_inputs = processLSideStepsMotionSpeed(input_sensor_data, input_total_deltas, LAR_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD)
@@ -197,9 +198,9 @@ def process_request(message):
         max_sensor_data = calculateMaxSensorData(input_sensor_data)
         min_sensor_data = calculateMinSensorData(input_sensor_data)
 
-        input_minmax = np.concatenate((max_sensor_data, min_sensor_data))
+        input_minmax = np.concatenate((min_sensor_data, max_sensor_data))
         
-        process_motiontype_inputs = input_minmax[:, [3, 7]]
+        process_motiontype_inputs = input_minmax[[3, 7]]
         process_motiontype_inputs = np.reshape(process_motiontype_inputs, (1, 2))
 
         #predict motiontype
@@ -245,15 +246,15 @@ def process_request(message):
     return response
 
 test_data = np.zeros((26,4))
-upper_bound = 50
-lower_bound = -50
-columns_to_change = [0]
+upper_bound = 20
+lower_bound = -20
+columns_to_change = [0, 2]
 
-for i in range(len(test_data) - WINDOW_SIZE_MOTION - 1):
+for i in range(len(test_data)):
     for j in columns_to_change:
         test_data[i][j] = np.random.randint(lower_bound, upper_bound)
 
-#print(test_data)
+print(test_data)
 
 test_data_list = test_data.tolist()
 
