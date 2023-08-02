@@ -1,7 +1,6 @@
 import asyncio
 import websockets
 import json
-import random
 from datetime import datetime
 import numpy as np 
 import os 
@@ -267,11 +266,25 @@ def process_request(message):
 
 
 #######################################################################
+## CHANGE OUTPUT COLOUR
+#######################################################################
+def print_yellow(text):
+    print("\033[93m{}\033[0m".format(text))
+
+def print_red(text):
+    print("\033[91m{}\033[0m".format(text))
+
+def print_green(text):
+    print("\033[92m{}\033[0m".format(text))
+
+
+
+#######################################################################
 # CREATE WEBSOCKET SERVER ON PORT 3003
 # THIS SERVER IS HOW OUR GAME WILL COMMUNICATE TO OUR PYTHON SCRIPTS
 ########################################################################
 async def handle_websocket(websocket, path):
-    print(str(datetime.now()) + ": Client connected")
+    print_green(str(datetime.now()) + ": Client connected")
 
 
     await websocket.send("You are now connected via WebSocket")
@@ -289,7 +302,7 @@ async def handle_websocket(websocket, path):
 
 
     except websockets.exceptions.ConnectionClosed:
-        print(str(datetime.now())  + ": Client disconnected")
+        print_yellow(str(datetime.now())  + ": Client disconnected")
 
 if __name__ == "__main__":
     start_server = websockets.serve(handle_websocket, "localhost", 3003)
