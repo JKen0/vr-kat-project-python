@@ -79,15 +79,15 @@ At a high level, what you need to do is essentially run all of the processed-tra
 
 To do part 1 (process the raw data), locate the following folders and run the folowing files:
 - "\processed-training-data\4-PROCESSED-DATA\TRAIN2\python-process-script\"
-    - process-raw-steps-csv.py
-    - process-raw-standing.py
-    - process-raw-sidesteps-csv.py
-    - process-data-augment.py
+    1. process-raw-steps-csv.py
+    2. process-raw-standing.py
+    3. process-raw-sidesteps-csv.py
+    4. process-data-augment.py
 
 - "\processed-training-data\4-PROCESSED-DATA\TEST2\python-process-script\"
-    - process-test-steps-csv.py
-    - process-sidesteps-diagonals-csv.py
-    - process-data-augment.py
+    5. process-test-steps-csv.py
+    6. process-sidesteps-diagonals-csv.py
+    7. process-data-augment.py
 
 
 After that, you should have a bunch of xlsx files in those two folders.
@@ -105,8 +105,8 @@ Part two, in "\NeuralNetwork\" you will see the following folders
 - classify-STEPS-SML-motionspeed
 
 In each of these folders, run the following scripts:
-- process-classify-training-numpy
-- process-classify-test-numpy
-- model-classify-model-2
+1. process-classify-training-numpy
+2. process-classify-test-numpy
+3. model-classify-model-2
 
 Remember, each of the folders represent a neural network, only need to run the ones that you want to make modifications for. 
