@@ -78,16 +78,16 @@ In the event you want to make modifications to an existing neural network, or yo
 At a high level, what you need to do is essentially run all of the processed-training-data scripts which will convert our raw data to processed data. Once that is ready, we then need to run the scripts to preprocess the training and test data. Once done, you can run the training on the neural network. 
 
 To do part 1 (process the raw data), locate the following folders and run the folowing files:
-- "\processed-training-data\4-PROCESSED-DATA\TRAIN2\python-process-script\"
+1. "\processed-training-data\4-PROCESSED-DATA\TRAIN2\python-process-script\"
     1. process-raw-steps-csv.py
     2. process-raw-standing.py
     3. process-raw-sidesteps-csv.py
     4. process-data-augment.py
 
-- "\processed-training-data\4-PROCESSED-DATA\TEST2\python-process-script\"
-    5. process-test-steps-csv.py
-    6. process-sidesteps-diagonals-csv.py
-    7. process-data-augment.py
+2. "\processed-training-data\4-PROCESSED-DATA\TEST2\python-process-script\"
+    1. process-test-steps-csv.py
+    2. process-sidesteps-diagonals-csv.py
+    3. process-data-augment.py
 
 
 After that, you should have a bunch of xlsx files in those two folders.
