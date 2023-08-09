@@ -11,6 +11,7 @@ This project focuses on utilizing Machine Learning and Neural Networks in order 
   <figcaption>Figure 1: This figure starts from the Unity Game, which then collects sensor data, this data is then sent to this server to make trajectory predictions which is then communicated back to our unity game.</figcaption>
 </figure>
 
+
 In the design of our prediction algorithm, we essentially have three layers of predictions which can seen iin figure 2, the first layer representing the type of motion the person is doing (STANDING, STEPS, LSIDESTEPS, RSIDESTEPS), the second layer is given the motion, how big of the steps they are taking (SMALL, LARGE), and finally given the motion and how big the step, how fast they are doing this motion (SLOW, AVERAGE, FAST). 
 
 <figure>

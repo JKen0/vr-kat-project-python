@@ -24,7 +24,7 @@ config_velocity_file.close()
 ############################################################
 
 sys.path.append(CURRENT_DIRECTORY + '\\config\\')
-from config import normalize_sensor_data, calculateSensorDeltas, calculateAbsSensorDeltas, calculateMaxSensorData, calculateMinSensorData, prediction_class_label, processStepsMotionSpeed, prediction_class_label_binary, processLSideStepsMotionSpeed, processRSideStepsMotionSpeed
+from config import normalize_sensor_data, calculateSensorDeltas, calculateAbsSensorDeltas, calculateMaxSensorData, calculateMinSensorData, prediction_class_label, processStepsMotionSpeed, prediction_class_label_binary, processLSideStepsMotionSpeed, processRSideStepsMotionSpeed, rotate_vector
 
 # ##############################################################
 # IMPORT THE NUMBER OF PARAMETERS WE NEED
@@ -52,6 +52,9 @@ SML_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD = CONFIG_DATA["SML_R_SIDESTEPS_ROLL_ROTA
 
 LAR_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD = CONFIG_DATA["LAR_L_SIDESTEPS_ROLL_ROTATION_THRESHOLD"]
 LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD = CONFIG_DATA["LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD"]
+
+# WE WILL SOLVE DRIFTING BY ROTATING OUR TRAJECTORY VECTOR
+DRIFT_ROTATION_ANGLE = 20
 
 ############################################################
 # IMPORT ALL OF THE NEURAL NETWORK MODELS WE NEED FOR OUR PREDICTION
@@ -89,7 +92,8 @@ def process_request(message):
     response = {
         'x_velocity': 0.000,
         'y_velocity': 0.000,
-        'z_velocity': 0.000
+        'z_velocity': 0.000,
+        'classification': ""
     }    
     
     # Process the request and return the response
@@ -240,22 +244,31 @@ def process_request(message):
         response['x_velocity'] = motion_config['x_velocity']
         response['z_velocity'] = motion_config['z_velocity']
 
-    #print(motion_label + '-' + motiontype_label + '-' + motionspeed_label)
-    #print(response)
+    # rotate vector to avoid the drifting issue
+    transform_x, transform_z = rotate_vector((response['x_velocity'], response['z_velocity']), DRIFT_ROTATION_ANGLE)
+
+    # update the response vector to the transformed x and z to avoid the drifting effect 
+    response['x_velocity'] = transform_x
+    response['z_velocity'] = transform_z
+
+    # also return classification
+    response['classification'] = motion_label + '-' + motiontype_label + '-' + motionspeed_label
+
+    print(response)
 
     return response
 
 ############################
 ## TEST PROCESS FUNCTION (FOR DEV PURPOSES)
 ############################
-#test_data = np.zeros((26,4))
-#upper_bound = 4
-#lower_bound = -4
-#columns_to_change = [3]
+test_data = np.zeros((26,4))
+upper_bound = 20
+lower_bound = -20
+columns_to_change = [0, 2]
 
-#for i in range(len(test_data)):
-#    for j in columns_to_change:
-#        test_data[i][j] = np.random.randint(lower_bound, upper_bound)
+for i in range(len(test_data)):
+    for j in columns_to_change:
+        test_data[i][j] = np.random.randint(lower_bound, upper_bound)
 
 #print(test_data)
 

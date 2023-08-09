@@ -2,6 +2,7 @@
 import numpy as np
 import os 
 import json 
+import math
 
 def count_sequences_above_threshold(data, threshold):
     num_sensors = data.shape[1]
@@ -121,3 +122,9 @@ def processRSideStepsMotionSpeed(sensor_data, total_deltas_data, threshold):
     extracted_results = input_data_array[:, [3,7]]
 
     return extracted_results
+
+def rotate_vector(vector, angle_degrees):
+    angle_radians = math.radians(angle_degrees)
+    x = vector[0] * math.cos(angle_radians) - vector[1] * math.sin(angle_radians)
+    z = vector[0] * math.sin(angle_radians) + vector[1] * math.cos(angle_radians)
+    return (x, z)
