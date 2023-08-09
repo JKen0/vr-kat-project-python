@@ -55,6 +55,7 @@ LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD = CONFIG_DATA["LAR_R_SIDESTEPS_ROLL_ROTA
 
 # WE WILL SOLVE DRIFTING BY ROTATING OUR TRAJECTORY VECTOR
 DRIFT_ROTATION_ANGLE = 20
+UPPER_BOUND_STANDING_DELTA_SUM = 3
 
 ############################################################
 # IMPORT ALL OF THE NEURAL NETWORK MODELS WE NEED FOR OUR PREDICTION
@@ -121,7 +122,8 @@ def process_request(message):
     ##########################################
     # LOGIC IF MOTION IS STAND
     ##########################################
-    if(motion_label == 'STAND'):
+    if(motion_label == 'STAND' or np.all(input_total_deltas_for_motion < UPPER_BOUND_STANDING_DELTA_SUM)):
+        motion_label == 'STAND'
         motion_config = CONFIG_VELOCITY_DATA[motion_label]
 
 
@@ -253,8 +255,6 @@ def process_request(message):
 
     # also return classification
     response['classification'] = motion_label + '-' + motiontype_label + '-' + motionspeed_label
-
-    print(response)
 
     return response
 
