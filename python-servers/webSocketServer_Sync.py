@@ -115,6 +115,9 @@ def process_request(message):
     input_total_deltas_for_motion = np.reshape(input_total_deltas_for_motion, (1, NUMBER_OF_FEATURES))
 
 
+    # calculate the maximum difference in the sensor readings
+    max_sensor_difference = np.max(input_sensor_data, axis=0) - np.min(input_sensor_data, axis=0)
+
     # PREDICT MOTION
     motion_prediction = predict_motion.predict(input_total_deltas_for_motion, verbose=0)
     motion_label = prediction_class_label(motion_prediction, CLASSES_MOTION)
@@ -122,8 +125,8 @@ def process_request(message):
     ##########################################
     # LOGIC IF MOTION IS STAND
     ##########################################
-    if(motion_label == 'STAND' or np.all(input_total_deltas_for_motion < UPPER_BOUND_STANDING_DELTA_SUM)):
-        motion_label == 'STAND'
+    if(motion_label == 'STAND' or np.all(max_sensor_difference < UPPER_BOUND_STANDING_DELTA_SUM)):
+        motion_label = 'STAND'
         motion_config = CONFIG_VELOCITY_DATA[motion_label]
 
 
@@ -262,8 +265,8 @@ def process_request(message):
 ## TEST PROCESS FUNCTION (FOR DEV PURPOSES)
 ############################
 test_data = np.zeros((26,4))
-upper_bound = 20
-lower_bound = -20
+upper_bound = -2
+lower_bound = -4
 columns_to_change = [0, 2]
 
 for i in range(len(test_data)):
@@ -272,10 +275,10 @@ for i in range(len(test_data)):
 
 #print(test_data)
 
-#test_data_list = test_data.tolist()
+test_data_list = test_data.tolist()
 
 
-#process_request(json.dumps(test_data_list))
+process_request(json.dumps(test_data_list))
 
 
 #######################################################################
