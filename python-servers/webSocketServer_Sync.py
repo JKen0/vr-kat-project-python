@@ -72,6 +72,7 @@ if(ENABLE_CALIBRATION):
 # WE WILL SOLVE DRIFTING BY ROTATING OUR TRAJECTORY VECTOR
 DRIFT_ROTATION_ANGLE = 20
 UPPER_BOUND_STANDING_DELTA_SUM = 3
+MINIMUM_DELTA_TO_MOVE = 10
 
 ############################################################
 # IMPORT ALL OF THE NEURAL NETWORK MODELS WE NEED FOR OUR PREDICTION
@@ -146,7 +147,7 @@ def process_request(message):
     ##########################################
     # LOGIC IF MOTION IS STAND
     ##########################################
-    if(motion_label == 'STAND' or np.all(max_sensor_difference < UPPER_BOUND_STANDING_DELTA_SUM)):
+    if(motion_label == 'STAND' or np.all(max_sensor_difference < UPPER_BOUND_STANDING_DELTA_SUM) or np.all(input_total_deltas < MINIMUM_DELTA_TO_MOVE)):
         motion_label = 'STAND'
         motion_config = CONFIG_VELOCITY_DATA[motion_label]
 
