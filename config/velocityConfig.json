@@ -5,6 +5,8 @@
     "STEPS-LAR-AVERAGE":        {"x_velocity": 0.000, "z_velocity": 3.532, "addConstant": 0.030},
     "STEPS-LAR-FAST":           {"x_velocity": 0.000, "z_velocity": 5.560, "addConstant": 0.030},
 
+    "STEPS-BSTEPS-AVERAGE":     {"x_velocity": 0.000, "z_velocity": -2.200, "addConstant": 0.030},
+
     "STEPS-SML-SLOW":           {"x_velocity": 0.000, "z_velocity": 1.500, "addConstant": 0.030},
     "STEPS-SML-AVERAGE":        {"x_velocity": 0.000, "z_velocity": 2.620, "addConstant": 0.030},
     "STEPS-SML-FAST":           {"x_velocity": 0.000, "z_velocity": 3.500, "addConstant": 0.030},

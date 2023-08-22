@@ -157,14 +157,22 @@ def process_request(message):
     ##########################################
     elif(motion_label == "STEPS"):
         max_sensor_data = calculateMaxSensorData(input_sensor_data)
+        min_sensor_data = calculateMinSensorData(input_sensor_data)
 
         max_pitch_reading = np.max(max_sensor_data[[0, 2]])
+        min_pitch_reading =  np.max(min_sensor_data[[0, 2]])
 
-        max_pitch_reading = np.reshape(max_pitch_reading, ((1, 1)))
-        
-        #predict motiontype
-        motiontype_prediction = predict_motiontype_steps.predict(max_pitch_reading, verbose=0)
-        motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
+        if(max_pitch_reading - min_pitch_reading >= 30):
+            motiontype_label = "BSTEPS"
+            motionspeed_label = "AVERAGE"
+
+        else:
+            max_pitch_reading = np.max(max_sensor_data[[0, 2]])
+            max_pitch_reading = np.reshape(max_pitch_reading, ((1, 1)))
+            
+            #predict motiontype
+            motiontype_prediction = predict_motiontype_steps.predict(max_pitch_reading, verbose=0)
+            motiontype_label = prediction_class_label_binary(motiontype_prediction, CLASSES_MOTIONTYPE)
 
 
         if(motiontype_label == "LAR"):
