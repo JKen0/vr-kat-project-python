@@ -70,7 +70,6 @@ if(ENABLE_CALIBRATION):
     LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD = LAR_R_SIDESTEPS_ROLL_ROTATION_THRESHOLD - REST_RROLL
 
 # WE WILL SOLVE DRIFTING BY ROTATING OUR TRAJECTORY VECTOR
-DRIFT_ROTATION_ANGLE = 20
 UPPER_BOUND_STANDING_DELTA_SUM = 3
 MINIMUM_DELTA_TO_MOVE = 10
 
@@ -280,11 +279,11 @@ def process_request(message):
         response['z_velocity'] = motion_config['z_velocity']
 
     # rotate vector to avoid the drifting issue
-    transform_x, transform_z = rotate_vector((response['x_velocity'], response['z_velocity']), DRIFT_ROTATION_ANGLE)
+    #transform_x, transform_z = rotate_vector((response['x_velocity'], response['z_velocity']), DRIFT_ROTATION_ANGLE)
 
     # update the response vector to the transformed x and z to avoid the drifting effect 
-    response['x_velocity'] = transform_x
-    response['z_velocity'] = transform_z
+    #response['x_velocity'] = transform_x
+    #response['z_velocity'] = transform_z
 
     # also return classification
     response['classification'] = motion_label + '-' + motiontype_label + '-' + motionspeed_label
@@ -352,6 +351,7 @@ async def handle_websocket(websocket, path):
 
 if __name__ == "__main__":
     start_server = websockets.serve(handle_websocket, "localhost", 3003)
+    print_green("Python WebSocket Server Live on Port 3003!!!!")
 
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
