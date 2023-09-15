@@ -54,12 +54,13 @@ In this section we will explore understanding the file structure I created and s
     - config.py - global functions used
     - velocityConfig.json - each predicted class is given a velocity (trajectory), all of those class, velocities are found here.
 
+- graphs folder: this folder contains all of the graphs used for the report utilizing matplotlib. 
+
 - NeuralNetwork folder: this folder contains all of the pre-processed logic/data, the training logic for our neural networks, and the trained neural networks. 
     - archived folder: unused/old attempts at creating a neural network.
     - models folder: all saved neural network models
     np-saved-data folder: all saved numpy data (in this case, is the preprocessed data for training)
     - classify-... folder (ex. classify-motion folder): each folder represents a neural network. In each folder contains the logic to pre-process the data as well as using that pre-processed data to train the neural network and save it. 
-    - test.py: This file contains all of the graph outputs and data analysis between different classifications.
 
 
 - processed-training-data folder: This folder contains all of the training data in the form of raw data (data extracted from the unity game) and processed data (altered data after running a python script). 
